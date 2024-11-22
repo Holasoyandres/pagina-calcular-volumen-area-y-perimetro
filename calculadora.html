@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área, Perímetro y Volumen</title>
+</head>
+<body>
+    <h1>Calculadora de Área, Perímetro y Volumen</h1>
+    <label for="figura">Selecciona una figura:</label>
+    <select id="figura">
+        <option value="circulo">Círculo</option>
+        <option value="rectangulo">Rectángulo</option>
+        <option value="triangulo">Triángulo</option>
+        <option value="cuadrado">Cuadrado</option>
+    </select>
+
+    <!-- Entrada para el círculo -->
+    <div id="inputCirculo" style="display: none;">
+        <label for="radio">Introduce el radio del círculo (en cm):</label>
+        <input type="number" id="radio" placeholder="Radio del círculo en cm">
+        <br>
+        <label for="alturaCilindro">Introduce la altura del cilindro (en cm):</label>
+        <input type="number" id="alturaCilindro" placeholder="Altura del cilindro en cm">
+    </div>
+
+    <!-- Entrada para el rectángulo -->
+    <div id="inputRectangulo" style="display: none;">
+        <label for="largo">Introduce el largo del rectángulo (en cm):</label>
+        <input type="number" id="largo" placeholder="Largo del rectángulo en cm">
+        <br>
+        <label for="ancho">Introduce el ancho del rectángulo (en cm):</label>
+        <input type="number" id="ancho" placeholder="Ancho del rectángulo en cm">
+        <br>
+        <label for="altoPrisma">Introduce la altura del prisma rectangular (en cm):</label>
+        <input type="number" id="altoPrisma" placeholder="Altura del prisma rectangular en cm">
+    </div>
+
+    <!-- Entrada para el triángulo -->
+    <div id="inputTriangulo" style="display: none;">
+        <label for="baseTriangulo">Introduce la base del triángulo (en cm):</label>
+        <input type="number" id="baseTriangulo" placeholder="Base del triángulo en cm">
+        <br>
+        <label for="alturaTriangulo">Introduce la altura del triángulo (en cm):</label>
+        <input type="number" id="alturaTriangulo" placeholder="Altura del triángulo en cm">
+        <br>
+        <label for="lado1">Introduce el primer lado del triángulo (en cm):</label>
+        <input type="number" id="lado1" placeholder="Primer lado del triángulo en cm">
+        <br>
+        <label for="lado2">Introduce el segundo lado del triángulo (en cm):</label>
+        <input type="number" id="lado2" placeholder="Segundo lado del triángulo en cm">
+        <br>
+        <label for="lado3">Introduce el tercer lado del triángulo (en cm):</label>
+        <input type="number" id="lado3" placeholder="Tercer lado del triángulo en cm">
+        <br>
+        <label for="alturaPrismaTriangulo">Introduce la altura del prisma triangular (en cm):</label>
+        <input type="number" id="alturaPrismaTriangulo" placeholder="Altura del prisma triangular en cm">
+    </div>
+
+    <!-- Entrada para el cuadrado -->
+    <div id="inputCuadrado" style="display: none;">
+        <label for="ladoCuadrado">Introduce el lado del cuadrado (en cm):</label>
+        <input type="number" id="ladoCuadrado" placeholder="Lado del cuadrado en cm">
+        <br>
+        <label for="alturaCubo">Introduce la altura del cubo (en cm):</label>
+        <input type="number" id="alturaCubo" placeholder="Altura del cubo en cm">
+    </div>
+
+    <button onclick="calcular()">Calcular</button>
+
+    <div id="resultado"></div>
+
+    <script>
+        // Función para mostrar los campos correspondientes según la figura seleccionada
+        document.getElementById("figura").addEventListener("change", function() {
+            let figuraSeleccionada = this.value;
+            document.getElementById("inputCirculo").style.display = "none";
+            document.getElementById("inputRectangulo").style.display = "none";
+            document.getElementById("inputTriangulo").style.display = "none";
+            document.getElementById("inputCuadrado").style.display = "none";
+
+            if (figuraSeleccionada === "circulo") {
+                document.getElementById("inputCirculo").style.display = "block";
+            } else if (figuraSeleccionada === "rectangulo") {
+                document.getElementById("inputRectangulo").style.display = "block";
+            } else if (figuraSeleccionada === "triangulo") {
+                document.getElementById("inputTriangulo").style.display = "block";
+            } else if (figuraSeleccionada === "cuadrado") {
+                document.getElementById("inputCuadrado").style.display = "block";
+            }
+        });
+
+        // Función para calcular el área, perímetro y volumen
+        function calcular() {
+            let figura = document.getElementById("figura").value;
+            let resultadoDiv = document.getElementById("resultado");
+            let area, perimetro, volumen;
+
+            if (figura === "circulo") {
+                let radio = parseFloat(document.getElementById("radio").value);
+                let alturaCilindro = parseFloat(document.getElementById("alturaCilindro").value);
+
+                if (isNaN(radio) || radio <= 0 || isNaN(alturaCilindro) || alturaCilindro <= 0) {
+                    resultadoDiv.innerHTML = "Por favor, introduce valores válidos.";
+                    return;
+                }
+
+                // Fórmulas para círculo (cilindro)
+                area = Math.PI * Math.pow(radio, 2);
+                perimetro = 2 * Math.PI * radio;
+                volumen = Math.PI * Math.pow(radio, 2) * alturaCilindro;
+
+                resultadoDiv.innerHTML = `Área del círculo: ${area.toFixed(2)} cm²<br>Perímetro del círculo: ${perimetro.toFixed(2)} cm<br>Volumen del cilindro: ${volumen.toFixed(2)} cm³`;
+            } 
+            else if (figura === "rectangulo") {
+                let largo = parseFloat(document.getElementById("largo").value);
+                let ancho = parseFloat(document.getElementById("ancho").value);
+                let altoPrisma = parseFloat(document.getElementById("altoPrisma").value);
+
+                if (isNaN(largo) || isNaN(ancho) || isNaN(altoPrisma) || largo <= 0 || ancho <= 0 || altoPrisma <= 0) {
+                    resultadoDiv.innerHTML = "Por favor, introduce dimensiones válidas.";
+                    return;
+                }
+
+                // Fórmulas para rectángulo (prisma rectangular)
+                area = largo * ancho;
+                perimetro = 2 * (largo + ancho);
+                volumen = largo * ancho * altoPrisma;
+
+                resultadoDiv.innerHTML = `Área del rectángulo: ${area.toFixed(2)} cm²<br>Perímetro del rectángulo: ${perimetro.toFixed(2)} cm<br>Volumen del prisma rectangular: ${volumen.toFixed(2)} cm³`;
+            }
+            else if (figura === "triangulo") {
+                let base = parseFloat(document.getElementById("baseTriangulo").value);
+                let altura = parseFloat(document.getElementById("alturaTriangulo").value);
+                let lado1 = parseFloat(document.getElementById("lado1").value);
+                let lado2 = parseFloat(document.getElementById("lado2").value);
+                let lado3 = parseFloat(document.getElementById("lado3").value);
+                let alturaPrismaTriangulo = parseFloat(document.getElementById("alturaPrismaTriangulo").value);
+
+                if (isNaN(base) || isNaN(altura) || isNaN(lado1) || isNaN(lado2) || isNaN(lado3) || isNaN(alturaPrismaTriangulo) || base <= 0 || altura <= 0 || lado1 <= 0 || lado2 <= 0 || lado3 <= 0 || alturaPrismaTriangulo <= 0) {
+                    resultadoDiv.innerHTML = "Por favor, introduce valores válidos.";
+                    return;
+                }
+
+                // Fórmulas para triángulo (prisma triangular)
+                area = (base * altura) / 2;
+                perimetro = lado1 + lado2 + lado3;
+                volumen = area * alturaPrismaTriangulo;
+
+                resultadoDiv.innerHTML = `Área del triángulo: ${area.toFixed(2)} cm²<br>Perímetro del triángulo: ${perimetro.toFixed(2)} cm<br>Volumen del prisma triangular: ${volumen.toFixed(2)} cm³`;
+            }
+            else if (figura === "cuadrado") {
+                let lado = parseFloat(document.getElementById("ladoCuadrado").value);
+                let alturaCubo = parseFloat(document.getElementById("alturaCubo").value);
+
+                if (isNaN(lado) || isNaN(alturaCubo) || lado <= 0 || alturaCubo <= 0) {
+                    resultadoDiv.innerHTML = "Por favor, introduce valores válidos.";
+                    return;
+                }
+
+                // Fórmulas para cuadrado (cubo)
+                area = Math.pow(lado, 2);
+                perimetro = 4 * lado;
+                volumen = Math.pow(lado, 3);
+
+                resultadoDiv.innerHTML = `Área del cuadrado: ${area.toFixed(2)} cm²<br>Perímetro del cuadrado: ${perimetro.toFixed(2)} cm<br>Volumen del cubo: ${volumen.toFixed(2)} cm³`;
+            }
+        }
+    </script>
+</body>
+</html>
